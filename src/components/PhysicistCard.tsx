@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Heart } from "lucide-react";
 import { Physicist } from "@/types";
+import { useLikes } from "@/hooks/useLikes";
 
 interface PhysicistCardProps {
   physicist: Physicist;
@@ -18,6 +19,9 @@ export const PhysicistCard: React.FC<PhysicistCardProps> = ({
   physicist, 
   featured = false 
 }) => {
+  const { toggleLike, isLiked } = useLikes();
+  const liked = isLiked(physicist.id);
+  
   return (
     <Card className={`overflow-hidden border-none shadow-lg ${
       featured 
@@ -47,6 +51,16 @@ export const PhysicistCard: React.FC<PhysicistCardProps> = ({
             </Badge>
           </div>
         </div>
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className={`absolute top-2 right-2 rounded-full ${
+            liked ? 'text-red-500 hover:text-red-400' : 'text-gray-300 hover:text-white'
+          } hover:bg-black/20`}
+          onClick={() => toggleLike(physicist.id)}
+        >
+          <Heart className={`h-5 w-5 ${liked ? 'fill-current' : ''}`} />
+        </Button>
       </div>
       
       <CardContent className="pt-4">
@@ -59,6 +73,19 @@ export const PhysicistCard: React.FC<PhysicistCardProps> = ({
           <h4 className="text-sm font-medium text-blue-400 mb-1">About</h4>
           <p className="text-gray-300 text-sm line-clamp-3">{physicist.bio}</p>
         </div>
+        
+        {physicist.topics && physicist.topics.length > 0 && (
+          <div className="mt-4">
+            <h4 className="text-sm font-medium text-blue-400 mb-1">Topics</h4>
+            <div className="flex flex-wrap gap-1 mt-1">
+              {physicist.topics.map((topic, index) => (
+                <Badge key={index} variant="secondary" className="bg-purple-900/40 text-xs">
+                  {topic}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        )}
       </CardContent>
       
       <CardFooter className="flex justify-between border-t border-white/10 pt-4">

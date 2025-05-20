@@ -17,6 +17,9 @@ export interface Physicist {
     likes?: number;
     bookmarks?: number;
   };
+  likes?: number; // Number of likes for this physicist
+  timeline?: string; // Historical timeline (Ancient, Renaissance, Modern, Contemporary, etc.)
+  topics?: string[]; // Array of topics this physicist can discuss
 }
 
 export interface Message {
@@ -63,4 +66,10 @@ export interface ReplicaNFT {
       value: string;
     }>;
   };
+}
+
+export interface Timeline {
+  id: string;
+  name: string;
+  range: string;
 }
