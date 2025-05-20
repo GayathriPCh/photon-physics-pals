@@ -19,7 +19,7 @@ const Replicas = () => {
   const godOfPhysics = physicists.find(p => p.id === "godofphysics");
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 pt-24">
       <div className="max-w-7xl mx-auto">
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
@@ -73,6 +73,11 @@ const Replicas = () => {
           <Link to="/journal">
             <Button className="bg-gradient-to-r from-blue-500 to-purple-500">
               View Learning Journal
+            </Button>
+          </Link>
+          <Link to="/create-replica">
+            <Button className="bg-gradient-to-r from-amber-500 to-yellow-500 text-black">
+              Create Your Own Physicist
             </Button>
           </Link>
         </div>

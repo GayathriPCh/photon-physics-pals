@@ -12,6 +12,9 @@ import Onboarding from "./pages/Onboarding";
 import Replicas from "./pages/Replicas";
 import Chat from "./pages/Chat";
 import Journal from "./pages/Journal";
+import Profile from "./pages/Profile";
+import CreateReplica from "./pages/CreateReplica";
+import { AppHeader } from "./components/AppHeader";
 
 const queryClient = new QueryClient();
 
@@ -22,12 +25,15 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <AppHeader />
           <Routes>
             <Route path="/" element={<Onboarding />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/replicas" element={<Replicas />} />
             <Route path="/chat/:physicistId" element={<Chat />} />
             <Route path="/journal" element={<Journal />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/create-replica" element={<CreateReplica />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

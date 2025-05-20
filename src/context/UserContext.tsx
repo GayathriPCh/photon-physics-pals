@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext, ReactNode } from "react";
-import { Note } from "@/types";
+import { Note, WalletInfo, PhotonToken } from "@/types";
 
 interface UserContextType {
   selectedInterests: string[];
@@ -12,6 +12,10 @@ interface UserContextType {
   notes: Note[];
   addNote: (note: Note) => void;
   deleteNote: (noteId: string) => void;
+  wallet: WalletInfo | null;
+  connectWallet: () => Promise<void>;
+  disconnectWallet: () => void;
+  photonTokens: PhotonToken | null;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -24,6 +28,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedPhysicists, setSelectedPhysicists] = useState<string[]>([]);
   const [useSimplifiedLanguage, setUseSimplifiedLanguage] = useState<boolean>(false);
+  const [wallet, setWallet] = useState<WalletInfo | null>(null);
+  const [photonTokens, setPhotonTokens] = useState<PhotonToken | null>(null);
   const [notes, setNotes] = useState<Note[]>([
     {
       id: "1",
@@ -51,6 +57,39 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     setNotes(prev => prev.filter(note => note.id !== noteId));
   };
 
+  // Mock wallet connection - in a real app, this would integrate with MetaMask or other providers
+  const connectWallet = async () => {
+    // Simulate connecting to wallet
+    try {
+      // In a real implementation, this would use window.ethereum or a similar provider
+      console.log("Connecting to wallet...");
+      // Mock successful connection
+      setTimeout(() => {
+        setWallet({
+          address: "0x" + Math.random().toString(16).slice(2, 12) + "...",
+          provider: "MetaMask",
+          chainId: 1,
+          balance: (Math.random() * 10).toFixed(4) + " ETH"
+        });
+        
+        setPhotonTokens({
+          balance: (Math.random() * 1000).toFixed(2),
+          earned: (Math.random() * 100).toFixed(2)
+        });
+      }, 1000);
+      
+      return Promise.resolve();
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+      return Promise.reject(error);
+    }
+  };
+  
+  const disconnectWallet = () => {
+    setWallet(null);
+    setPhotonTokens(null);
+  };
+
   const value = {
     selectedInterests,
     setSelectedInterests,
@@ -60,7 +99,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     setUseSimplifiedLanguage,
     notes,
     addNote,
-    deleteNote
+    deleteNote,
+    wallet,
+    connectWallet,
+    disconnectWallet,
+    photonTokens
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
