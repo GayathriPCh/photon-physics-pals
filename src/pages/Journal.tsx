@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "@/context/UserContext";
@@ -83,7 +82,7 @@ const Journal = () => {
                     <CardHeader>
                       <div className="flex justify-between items-start">
                         <div>
-                          <CardTitle className="text-xl">{note.title}</CardTitle>
+                          <CardTitle className="text-xl text-white">{note.title}</CardTitle>
                           <CardDescription className="flex items-center mt-1">
                             <Calendar className="h-3 w-3 mr-1" /> 
                             {new Date(note.timestamp).toLocaleDateString()}
