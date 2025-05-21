@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useUserContext } from "@/context/UserContext";
@@ -160,8 +159,8 @@ const CreateReplica = () => {
                 <div className="md:col-span-1">
                   <Card className="bg-black/30 backdrop-blur-sm border-none shadow-lg sticky top-24">
                     <CardHeader>
-                      <CardTitle>Replica Preview</CardTitle>
-                      <CardDescription>
+                      <CardTitle className="text-white">Replica Preview</CardTitle>
+                      <CardDescription className="text-gray-300">
                         How your physicist will appear to users
                       </CardDescription>
                     </CardHeader>
@@ -178,12 +177,12 @@ const CreateReplica = () => {
                           className="absolute bottom-2 right-2 bg-black/50" 
                           onClick={regenerateWallpaper}
                         >
-                          <Upload size={14} className="mr-1" /> Change
+                          <Upload size={14} className="mr-1" color="white"/> Change
                         </Button>
                         <div className="absolute bottom-2 left-2 flex items-center">
                           <Avatar className="border-2 border-white h-14 w-14">
                             <AvatarImage src={avatar} />
-                            <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500">
+                            <AvatarFallback className="bg-gradient-to-br from-purple-500 to-white text-white">
                               {form.watch("name").charAt(0) || "P"}
                             </AvatarFallback>
                           </Avatar>
@@ -193,14 +192,14 @@ const CreateReplica = () => {
                             className="ml-2 bg-black/50" 
                             onClick={regenerateAvatar}
                           >
-                            <Upload size={14} className="mr-1" /> Avatar
+                            <Upload size={14} className="mr-1" color="white" /> Avatar
                           </Button>
                         </div>
                       </div>
                       
                       <div>
-                        <h3 className="font-bold text-lg">{form.watch("name") || "Your Physicist Name"}</h3>
-                        <p className="text-sm text-gray-400">{form.watch("specialty") || "Physicist specialty"}</p>
+                        <h3 className="font-bold text-lg text-white">{form.watch("name") || "Your Physicist Name"}</h3>
+                        <p className="text-sm text-white">{form.watch("specialty") || "Physicist specialty"}</p>
                         
                         <div className="mt-4">
                           <Badge variant="outline" className="border-blue-400 text-blue-400">
@@ -232,7 +231,7 @@ const CreateReplica = () => {
                 <div className="md:col-span-2 space-y-6">
                   <Card className="bg-black/30 backdrop-blur-sm border-none shadow-lg">
                     <CardHeader>
-                      <CardTitle>Basic Information</CardTitle>
+                      <CardTitle className="text-white">Basic Information</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <FormField
@@ -240,7 +239,7 @@ const CreateReplica = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Physicist Name</FormLabel>
+                            <FormLabel className="text-white">Physicist Name</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="e.g., Dr. Neutrino, The Quantum Jester" 
@@ -262,7 +261,7 @@ const CreateReplica = () => {
                           name="specialty"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Specialty</FormLabel>
+                              <FormLabel className="text-white">Specialty</FormLabel>
                               <FormControl>
                                 <Input 
                                   placeholder="e.g., Quantum Mechanics, Fluid Dynamics" 
@@ -283,7 +282,7 @@ const CreateReplica = () => {
                           name="era"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Era</FormLabel>
+                              <FormLabel className="text-white">Era</FormLabel>
                               <FormControl>
                                 <Input 
                                   placeholder="e.g., Modern, 21st Century, Fictional" 
@@ -305,7 +304,7 @@ const CreateReplica = () => {
                         name="bio"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Biography</FormLabel>
+                            <FormLabel className="text-white">Biography</FormLabel>
                             <FormControl>
                               <Textarea 
                                 placeholder="Write a compelling backstory for your physicist character..." 
@@ -326,7 +325,7 @@ const CreateReplica = () => {
                         name="knownFor"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Known For</FormLabel>
+                            <FormLabel className="text-white">Known For</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="e.g., Pioneering Dark Matter Theory" 
@@ -346,8 +345,8 @@ const CreateReplica = () => {
                   
                   <Card className="bg-black/30 backdrop-blur-sm border-none shadow-lg">
                     <CardHeader>
-                      <CardTitle>Topics & Knowledge Areas</CardTitle>
-                      <CardDescription>
+                      <CardTitle className="text-white">Topics & Knowledge Areas</CardTitle>
+                      <CardDescription className="text-gray-300">
                         Select topics that your physicist can explain to users
                       </CardDescription>
                     </CardHeader>
