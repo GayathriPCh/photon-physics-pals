@@ -15,6 +15,7 @@ import Journal from "./pages/Journal";
 import Profile from "./pages/Profile";
 import CreateReplica from "./pages/CreateReplica";
 import { AppHeader } from "./components/AppHeader";
+import { WalletProvider } from './context/WalletContext';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+        <WalletProvider>
           <AppHeader />
           <Routes>
             <Route path="/" element={<Onboarding />} />
@@ -37,6 +39,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </WalletProvider>
         </BrowserRouter>
       </TooltipProvider>
     </UserProvider>

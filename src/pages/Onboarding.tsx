@@ -1,24 +1,38 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { InterestSelector } from "@/components/InterestSelector";
 import { PhysicistSelector } from "@/components/PhysicistSelector";
-import { usePhysicists } from "@/hooks/usePhysicists";
+import { useSensayReplicas } from "@/hooks/useSensayReplicas";
+import { mapReplicaToPhysicist } from "@/utils/mapReplicaToPhysicist";
 import { useUserContext } from "@/context/UserContext";
 
 const Onboarding = () => {
-  const { physicists } = usePhysicists();
+  console.log("[Onboarding] Component mounted");
+  
+  const { replicas, loading, error } = useSensayReplicas();
+  console.log("[Onboarding] replicas:", replicas);
+  console.log("[Onboarding] loading:", loading);
+  console.log("[Onboarding] error:", error);
+
   const { setSelectedInterests, setSelectedPhysicists } = useUserContext();
-  const navigate = useNavigate();
   
   const [interests, setInterests] = useState<string[]>([]);
   const [selectedPhysicistIds, setSelectedPhysicistIds] = useState<string[]>([]);
-  
+
+  // Map Sensay replicas to your physicist format
+  const physicists = replicas.map(mapReplicaToPhysicist);
+  console.log("[Onboarding] mapped physicists:", physicists);
+
   const handleContinue = () => {
+    console.log("[Onboarding] handleContinue called");
+    console.log("[Onboarding] interests:", interests);
+    console.log("[Onboarding] selectedPhysicistIds:", selectedPhysicistIds);
+
     if (interests.length === 0) {
+      console.log("[Onboarding] No interests selected, showing toast");
       toast({
         title: "Select interests",
         description: "Please select at least one area of interest",
@@ -26,8 +40,8 @@ const Onboarding = () => {
       });
       return;
     }
-
     if (selectedPhysicistIds.length === 0) {
+      console.log("[Onboarding] No physicists selected, showing toast");
       toast({
         title: "Select physicists",
         description: "Please select at least one physicist to chat with",
@@ -35,17 +49,19 @@ const Onboarding = () => {
       });
       return;
     }
-    
     setSelectedInterests(interests);
     setSelectedPhysicists(selectedPhysicistIds);
+    console.log("[Onboarding] Updated user context with interests and physicists");
     
     toast({
       title: "Welcome to Photon!",
       description: "Your physics journey begins now",
     });
-    
+    console.log("[Onboarding] Navigating to /replicas");
     navigate("/replicas");
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-slate-900 to-slate-800">
@@ -64,7 +80,10 @@ const Onboarding = () => {
           <CardContent>
             <InterestSelector 
               selectedInterests={interests} 
-              onSelectionChange={setInterests} 
+              onSelectionChange={(newInterests) => {
+                console.log("[Onboarding] interests changed:", newInterests);
+                setInterests(newInterests);
+              }} 
             />
           </CardContent>
         </Card>
@@ -77,11 +96,20 @@ const Onboarding = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <PhysicistSelector 
-              physicists={physicists} 
-              selectedPhysicistIds={selectedPhysicistIds}
-              onSelectionChange={setSelectedPhysicistIds}
-            />
+            {loading ? (
+              <div>Loading physicists...</div>
+            ) : error ? (
+              <div>Error loading physicists.</div>
+            ) : (
+              <PhysicistSelector 
+                physicists={physicists} 
+                selectedPhysicistIds={selectedPhysicistIds}
+                onSelectionChange={(newIds) => {
+                  console.log("[Onboarding] selectedPhysicistIds changed:", newIds);
+                  setSelectedPhysicistIds(newIds);
+                }}
+              />
+            )}
           </CardContent>
         </Card>
         

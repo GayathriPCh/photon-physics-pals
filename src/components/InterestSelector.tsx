@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 
@@ -36,23 +35,28 @@ export const InterestSelector: React.FC<InterestSelectorProps> = ({
       onSelectionChange([...selectedInterests, interest]);
     }
   };
-  
+
   return (
     <div className="flex flex-wrap gap-2">
-      {physicsInterests.map(interest => (
-        <Badge
-          key={interest}
-          variant={selectedInterests.includes(interest) ? "default" : "outline"}
-          className={`cursor-pointer text-sm py-2 px-3 ${
-            selectedInterests.includes(interest) 
-              ? "bg-gradient-to-r from-blue-500 to-purple-500"
-              : "bg-transparent hover:bg-white/5"
-          }`}
-          onClick={() => toggleInterest(interest)}
-        >
-          {interest}
-        </Badge>
-      ))}
+      {physicsInterests.map(interest => {
+        const selected = selectedInterests.includes(interest);
+        return (
+          <Badge
+            key={interest}
+            variant="default"
+            className={`
+              cursor-pointer text-sm py-2 px-4 rounded-full transition
+              ${selected 
+                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold shadow-md border-none"
+                : "bg-white/10 hover:bg-white/20 text-white border border-white/20 font-normal"
+              }
+            `}
+            onClick={() => toggleInterest(interest)}
+          >
+            {interest}
+          </Badge>
+        );
+      })}
     </div>
   );
 };

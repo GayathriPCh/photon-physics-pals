@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,11 +7,10 @@ import { usePhysicists } from "@/hooks/usePhysicists";
 import { useUserContext } from "@/context/UserContext";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
-import { Physicist } from "@/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Replicas = () => {
-  const { physicists, timelines, allTopics } = usePhysicists();
+  const { physicists, timelines, allTopics, loading, error } = usePhysicists();
   const { selectedPhysicists } = useUserContext();
   const [filters, setFilters] = useState({
     search: "",
@@ -20,41 +18,38 @@ const Replicas = () => {
     topic: ""
   });
   const [activeTab, setActiveTab] = useState<"selected" | "all">("selected");
-  
+
   const filteredPhysicists = useMemo(() => {
-    // Start with either all physicists or just the selected ones
-    let filtered = activeTab === "selected" 
+    let filtered = activeTab === "selected"
       ? physicists.filter(p => selectedPhysicists.includes(p.id))
       : physicists;
-    
-    // Apply search filter
+
     if (filters.search) {
       const searchTerm = filters.search.toLowerCase();
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(searchTerm) || 
-        p.specialty.toLowerCase().includes(searchTerm)
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(searchTerm) ||
+        (p.specialty ?? "").toLowerCase().includes(searchTerm)
       );
     }
-    
-    // Apply timeline filter
+
     if (filters.timeline && filters.timeline !== "all") {
-      filtered = filtered.filter(p => 
-        p.timeline?.toLowerCase() === filters.timeline.toLowerCase()
+      filtered = filtered.filter(p =>
+        (p.era ?? "").toLowerCase() === filters.timeline.toLowerCase()
       );
     }
-    
-    // Apply topic filter
+
     if (filters.topic) {
-      filtered = filtered.filter(p => 
-        p.topics?.some(t => t.toLowerCase() === filters.topic.toLowerCase())
+      filtered = filtered.filter(p =>
+        (p.topics ?? []).some(t => t.toLowerCase() === filters.topic.toLowerCase())
       );
     }
-    
+
     return filtered;
   }, [physicists, selectedPhysicists, filters, activeTab]);
-  
-  const godOfPhysics = physicists.find(p => p.id === "godofphysics");
-  
+
+  // Find the "Photon Guide" (God of Physics) if present
+  const godOfPhysics = physicists.find(p => p.name.toLowerCase().includes("photon"));
+
   const handleFilterChange = (newFilters: {
     search: string;
     timeline: string;
@@ -62,7 +57,10 @@ const Replicas = () => {
   }) => {
     setFilters(newFilters);
   };
-  
+
+  if (loading) return <div className="p-8 text-center text-lg text-white">Loading physicists...</div>;
+  if (error) return <div className="p-8 text-center text-lg text-red-400">Error loading physicists.</div>;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 pt-24">
       <div className="max-w-7xl mx-auto">
@@ -89,7 +87,7 @@ const Replicas = () => {
         </header>
 
         <div className="mb-8">
-          <PhysicistFilters 
+          <PhysicistFilters
             timelines={timelines}
             topics={allTopics}
             onFilterChange={handleFilterChange}
@@ -114,7 +112,7 @@ const Replicas = () => {
             <TabsTrigger value="selected">Your Selected Physicists</TabsTrigger>
             <TabsTrigger value="all">All Physicists</TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="selected" className="mt-0">
             {filteredPhysicists.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -125,8 +123,8 @@ const Replicas = () => {
             ) : (
               <div className="bg-black/20 backdrop-blur-sm rounded-lg p-8 text-center">
                 <p className="text-gray-400 mb-4">
-                  {filters.search || filters.timeline !== "all" || filters.topic 
-                    ? "No physicists match your filters" 
+                  {filters.search || filters.timeline !== "all" || filters.topic
+                    ? "No physicists match your filters"
                     : "You haven't selected any physicists yet"}
                 </p>
                 <Link to="/onboarding">
@@ -137,7 +135,7 @@ const Replicas = () => {
               </div>
             )}
           </TabsContent>
-          
+
           <TabsContent value="all" className="mt-0">
             {filteredPhysicists.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

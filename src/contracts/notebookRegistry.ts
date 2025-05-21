@@ -1,0 +1,4 @@
+export const NOTEBOOK_REGISTRY_ABI = 
+    [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"string","name":"pageId","type":"string"}],"name":"NotebookCreated","type":"event"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"getNotebook","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"hasNotebook","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"pageId","type":"string"}],"name":"setNotebook","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+;
+export const NOTEBOOK_REGISTRY_ADDRESS = "0xA41B14729900BbB5EB76a2740f62Eac29bC48495";
