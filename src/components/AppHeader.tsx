@@ -56,6 +56,9 @@ export const AppHeader: React.FC = () => {
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">
+          <Link to="/" className="text-white/90 hover:text-white transition-colors">
+            Home
+          </Link>
           <Link to="/replicas" className="text-white/90 hover:text-white transition-colors">
             Physicists
           </Link>
