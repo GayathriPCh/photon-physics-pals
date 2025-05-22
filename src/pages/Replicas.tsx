@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PhotonGodCard } from "@/components/PhotonGodCard";
 
 const Replicas = () => {
   const { physicists, timelines, allTopics, loading, error } = usePhysicists();
@@ -114,10 +115,13 @@ const Replicas = () => {
               </span>
             </h2>
             <div className="flex justify-center">
-              <div className="rounded-2xl shadow-2xl ring-4 ring-amber-300/40 ring-offset-4 ring-offset-slate-900 bg-gradient-to-br from-yellow-100/10 to-purple-400/10 p-1 transition-all hover:scale-105">
-                <PhysicistCard physicist={godOfPhysics} featured={true} />
-              </div>
-            </div>
+  <PhotonGodCard
+    physicist={godOfPhysics}
+    onChat={() => {
+      window.location.href = `/chat/${godOfPhysics.id}`;
+    }}
+  />
+</div>
           </div>
         )}
 
