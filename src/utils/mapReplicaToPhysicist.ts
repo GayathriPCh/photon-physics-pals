@@ -15,7 +15,7 @@ export const mapReplicaToPhysicist = (replica: any) => {
       wallpaper = 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1080&auto=format&fit=crop';
     } else if (name.includes('photon')) {
       era = 'Timeless';
-      wallpaper = 'https://images.unsplash.com/photo-1614332287897-cdc485fa562d?q=80&w=1080&auto=format&fit=crop';
+      wallpaper = 'https://news.mit.edu/sites/default/files/styles/news_article__image_gallery/public/images/201905/MIT-Better-Photons_0.jpg?itok=AG6ognx-';
     }
   
     return {
