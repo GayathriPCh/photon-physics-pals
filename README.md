@@ -17,6 +17,24 @@
 - 🪙 **Decentralized Reward System**: Replicas are NFTs; creators earn $PHOTON tokens as users engage with them.
 
 ---
+# Setup 
+1) Clone the repository
+   ```bash
+   git clone https://github.com/tmanas06/photon-physics-pals
+   ```
+2) install all node modules in the root itself
+   ```bash
+   npm install
+   ```
+3) run the root for backend server
+   ```bash
+   npm run dev
+   ```
+4) run the frontend from the src folder
+   ```bash
+   npm run dev
+   ```
+---
 
 ## ⚙️ Tech Stack
 
