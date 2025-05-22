@@ -21,6 +21,7 @@
 1) Clone the repository
    ```bash
    git clone https://github.com/tmanas06/photon-physics-pals
+   cd photon-physics-pals
    ```
 2) install all node modules in the root itself
    ```bash
@@ -32,6 +33,7 @@
    ```
 4) run the frontend from the src folder
    ```bash
+   cd src
    npm run dev
    ```
 ---
