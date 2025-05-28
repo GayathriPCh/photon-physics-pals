@@ -12,6 +12,8 @@ import { ethers } from "ethers";
 import { useQuery } from "@tanstack/react-query";
 import { Contract, EventLog } from 'ethers';
 
+const ONBOARD_BG = "/onboard.jpg";
+
 // Add this new hook
 const useCommunityReplicas = () => {
   const fetchCommunityReplicas = async () => {
@@ -132,18 +134,23 @@ const Onboarding = () => {
   const { data: communityReplicas } = useCommunityReplicas();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-3xl w-full">
-        <h1 className="text-4xl font-bold text-center mb-8 text-white">
-          Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">Photon</span>
+ <div
+      className="min-h-screen w-full flex flex-col items-center justify-center p-4"
+      style={{
+        backgroundImage: `url(${ONBOARD_BG})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        fontFamily: "'Outfit', sans-serif",
+        position: "relative",
+      }}
+    >
+            <div className="max-w-3xl w-full">
+        <h1 className="text-4xl font-bold text-center mb-8 text-black">
+          G'day mate! Whom do you want to get acquainted with today?
         </h1>
         
         <Card className="mb-8 border-none shadow-lg bg-black/20 backdrop-blur-sm text-white">
           <CardHeader>
-            <CardTitle>What physics topics interest you?</CardTitle>
-            <CardDescription className="text-gray-300">
-              Select areas of physics you'd like to explore
-            </CardDescription>
           </CardHeader>
           <CardContent>
             <InterestSelector 
@@ -158,10 +165,7 @@ const Onboarding = () => {
         
         <Card className="mb-8 border-none shadow-lg bg-black/20 backdrop-blur-sm text-white">
           <CardHeader>
-            <CardTitle>Choose your physics mentors</CardTitle>
-            <CardDescription className="text-gray-300">
-              Select the brilliant minds you'd like to chat with
-            </CardDescription>
+            
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -200,13 +204,14 @@ const Onboarding = () => {
           </CardContent>
         </Card>
         <div className="flex justify-center">
-          <Button 
-            className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 px-8 py-6"
-            size="lg" 
-            onClick={handleContinue}
-          >
-            Begin Your Physics Journey
-          </Button>
+          <button
+        className="mt-2 text-black bg-gradient-to-r from-green-300 via-blue-600 to-green-200
+ hover:from-sky-600 hover:to-orange-500 focus:ring-4 focus:outline-none focus:ring-purple-300 font-bold text-lg px-6 py-3 rounded-full shadow-lg transition-all font-body tracking-wide" 
+        style={{ fontFamily: "'Outfit', sans-serif" }}
+        onClick={handleContinue}
+      >
+        Let's go people!
+      </button>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { UserProvider } from "@/context/UserContext";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Onboarding from "./pages/Onboarding";
+import PhotonLanding from "./pages/PhotonLanding";
 import Replicas from "./pages/Replicas";
 import Chat from "./pages/Chat";
 import Journal from "./pages/Journal";
@@ -31,8 +31,8 @@ function App() {
                 <AppHeader />
                 <main className="pt-16 min-h-[calc(100vh-4rem)]">
                   <Routes>
-                    <Route path="/" element={<Onboarding />} />
-                    <Route path="/onboarding" element={<Onboarding />} />
+                    <Route path="/" element={<PhotonLanding />} />
+                    <Route path="/onboarding" element={<PhotonLanding />} />
                     <Route path="/replicas" element={<Replicas />} />
                     <Route path="/chat/:physicistId" element={<Chat />} />
                     <Route path="/journal" element={<Journal />} />
