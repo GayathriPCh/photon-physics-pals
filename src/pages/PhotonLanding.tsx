@@ -38,12 +38,11 @@ const HeroSection = ({ onBegin }) => (
       </div>
 
       <button
-        className="mt-2 text-black bg-gradient-to-r from-sky-600 via-blue-700 to-purple-500
- hover:from-sky-600 hover:to-purple-500 focus:ring-4 focus:outline-none focus:ring-purple-300 font-bold text-lg px-6 py-3 rounded-full shadow-lg transition-all font-body tracking-wide" 
-        style={{ fontFamily: "'Outfit', sans-serif" }}
+        className="mt-2 text-black bg-gradient-to-r from-[#2faf80a4] via-[#03E1FF] to-[#DC1FFF] 
+ font-bold hover:scale-105 transition-transform text-lg px-6 py-3 rounded-full shadow-lg  font-body tracking-wide" 
+        style={{ fontFamily: "'outfit'" }}
         onClick={onBegin}
-      >
-        Start Your Physics Journey
+>        Explore now
       </button>
     </div>
   </section>

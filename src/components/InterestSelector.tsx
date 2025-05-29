@@ -38,35 +38,14 @@ export const InterestSelector: React.FC<InterestSelectorProps> = ({
 
   return (
     <div
-      className="w-full max-w-4xl mx-auto rounded-2xl p-8"
+      className="w-full max-w-4xl mx-auto rounded-2xl p-6 md:p-8 border border-[#03E1FF]/30"
       style={{
-        background: "rgba(255,255,255,0.13)",
-        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.10)",
+        background: "rgba(24, 26, 32, 0.8)", // #181A20 with transparency
         backdropFilter: "blur(12px)",
+        boxShadow: "0 8px 32px 0 rgba(0, 255, 163, 0.15)"
       }}
     >
-        <h2
-          className="text-2xl md:text-3xl font-bold"
-          style={{ fontFamily: "'Outfit', sans-serif", backgroundImage: "linear-gradient(to top, #96fbc4 0%, #f9f586 100%)",
-             WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent", }}
-        >
-        
-        What physics topics interest you?
-      </h2>
-      <p
-        className="text-base md:text-lg font-medium mb-6"
-        style={{
-          fontFamily: "'Outfit', sans-serif",
-          background: "linear-gradient(90deg,#96fbc4 0%,#fff44f 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          letterSpacing: "0.01em",
-        }}
-      >
-        Select areas of physics you'd like to explore
-      </p>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-3">
         {physicsInterests.map(interest => {
           const selected = selectedInterests.includes(interest);
           return (
@@ -76,15 +55,17 @@ export const InterestSelector: React.FC<InterestSelectorProps> = ({
               onClick={() => toggleInterest(interest)}
               className={`
                 transition-all duration-150 select-none
-                px-6 py-2 rounded-full text-lg font-bold
+                px-4 py-2 rounded-xl text-base font-semibold
+                border-2 hover:scale-105
                 ${selected
-                  ? "bg-gradient-to-r from-green-300 via-blue-600 to-green-200 text-black shadow-md"
-                  : "bg-[#35363a] text-white hover:bg-[#43454a] border border-transparent"
+                  ? "bg-gradient-to-r from-[#00FFA3] to-[#03E1FF] text-black shadow-lg shadow-[#00FFA3]/20"
+                  : "bg-[#23243a] border-[#03E1FF]/20 text-[#03E1FF] hover:border-[#00FFA3]/50 hover:bg-[#23243a]/80"
                 }
               `}
               style={{
                 fontFamily: "'Outfit', sans-serif",
                 outline: "none",
+                transitionProperty: "transform, background, box-shadow"
               }}
             >
               {interest}

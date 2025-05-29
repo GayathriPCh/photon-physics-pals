@@ -8,10 +8,10 @@ import { useUserContext } from "@/context/UserContext";
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
-import { Home } from "lucide-react";
+import { Home, Sparkles, Zap, ArrowRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PhotonGodCard } from "@/components/PhotonGodCard";
-
+import '../fonts.css';
 const Replicas = () => {
   const { physicists, timelines, allTopics, loading, error } = usePhysicists();
   const { selectedPhysicists } = useUserContext();
@@ -50,7 +50,6 @@ const Replicas = () => {
     return filtered;
   }, [physicists, selectedPhysicists, filters, activeTab]);
 
-  // Always show Photon God (by name or UID)
   const godOfPhysics = physicists.find(
     p => p.id === "90af87a0-bc41-4e40-aacd-494fdfdfadd2" ||
          p.name.toLowerCase().includes("photon")
@@ -64,141 +63,178 @@ const Replicas = () => {
     setFilters(newFilters);
   };
 
-  if (loading) return <div className="p-8 text-center text-lg text-white">Loading physicists...</div>;
-  if (error) return <div className="p-8 text-center text-lg text-red-400">Error loading physicists.</div>;
+  if (loading) return <div className="p-8 text-center text-lg text-white font-outfit">Loading physicists...</div>;
+  if (error) return <div className="p-8 text-center text-lg text-white font-outfit">Error loading physicists.</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#312e81] text-white p-6 pt-24 relative overflow-x-hidden">
-      {/* Subtle animated stars/aurora overlay */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-500/10 via-transparent to-transparent animate-pulse" />
-        {/* Add more SVG/Canvas overlays for aurora/stars if desired */}
-      </div>
-      <div className="max-w-7xl mx-auto relative z-10">
-        <Breadcrumb className="mb-8">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/"><Home size={16} /></Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <span>Physicists</span>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+    <div 
+      className="min-h-screen bg-black text-white font-outfit"
+      style={{
+        backgroundImage: `
+          linear-gradient(135deg, rgba(0,255,163,0.08) 0%, rgba(3,225,255,0.08) 50%, rgba(220,31,255,0.08) 100%),
+          url("/bg.jpg")
+        `,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="bg-black/80 backdrop-blur-sm min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Breadcrumb */}
+          <Breadcrumb className="mb-12">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/" className="text-[#00FFA3] hover:text-white transition-colors font-outfit">
+                    <Home size={16} />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="text-[#03E1FF]" />
+              <BreadcrumbItem>
+                <span className="text-white font-outfit">Physicists</span>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
 
-        <header className="mb-8">
-          <h1 className="text-4xl font-extrabold mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-purple-400 to-amber-300 drop-shadow-lg">
-            Your Physics Mentors
-          </h1>
-          <p className="text-gray-300 max-w-2xl">
-            Chat with history's greatest physics minds. They'll explain complex concepts 
-            in approachable ways while maintaining their unique personalities.
-          </p>
-        </header>
+          {/* Hero Section */}
+         <div className="text-center mb-16">
+  <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white font-outfit tracking-tight" style={{ fontFamily: 'cyber' }}>
+    speak across <span className="text-[#531fff]">timelines.</span>
+  </h1>
+  <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-outfit">
+    Chat with history's greatest physics minds. 
+  </p>
+</div>
 
-        <div className="mb-8">
-          <PhysicistFilters
-            timelines={timelines}
-            topics={allTopics}
-            onFilterChange={handleFilterChange}
-          />
-        </div>
-
-        {godOfPhysics && (
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-6 flex items-center justify-center">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-amber-400 to-purple-400 drop-shadow-lg tracking-wide animate-pulse">
-                Speak to the Photon God, your cosmic guide
-              </span>
-            </h2>
-            <div className="flex justify-center">
-  <PhotonGodCard
-    physicist={godOfPhysics}
-    onChat={() => {
-      window.location.href = `/chat/${godOfPhysics.id}`;
-    }}
+{/* Filters */}
+<div className="mb-16">
+  <PhysicistFilters
+    timelines={timelines}
+    topics={allTopics}
+    onFilterChange={handleFilterChange}
   />
 </div>
+
+{/* Photon God Section */}
+{godOfPhysics && (
+  <div className="mb-20">
+    <div className="text-center mb-10">
+      <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-outfit" style={{ fontFamily: 'cyber' }}>
+        <Sparkles className="inline-block mr-3 h-8 w-8 text-[#00FFA3]" />
+        Meet Your Cosmic Guide
+        <Sparkles className="inline-block ml-3 h-8 w-8 text-[#00FFA3]" />
+      </h2>
+      <p className="text-lg text-gray-300 font-outfit">The Photon God awaits</p>
+    </div>
+
+    <div className="flex justify-center">
+      <PhotonGodCard
+        physicist={godOfPhysics}
+        onChat={() => {
+          window.location.href = `/chat/${godOfPhysics.id}`;
+        }}
+      />
+    </div>
+  </div>
+)}
+
+
+          {/* Tabs */}
+          <div className="mb-12">
+            <Tabs defaultValue="selected" onValueChange={(value) => setActiveTab(value as "selected" | "all")}>
+              <div className="flex justify-center mb-12">
+                <TabsList className="bg-[#181A20] p-1 rounded-2xl border border-[#03E1FF]/20 shadow-2xl">
+                  <TabsTrigger 
+                    value="selected" 
+                    className="px-8 py-3 rounded-xl font-semibold font-outfit text-gray-400 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00FFA3] data-[state=active]:to-[#03E1FF] data-[state=active]:text-black transition-all"
+                  >
+                    Your Selected Physicists
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="all" 
+                    className="px-8 py-3 rounded-xl font-semibold font-outfit text-gray-400 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#00FFA3] data-[state=active]:to-[#03E1FF] data-[state=active]:text-black transition-all"
+                  >
+                    All Physicists
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+
+              <TabsContent value="selected" className="mt-0">
+                {filteredPhysicists.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredPhysicists.map(physicist => (
+                      <div key={physicist.id} className="transform hover:scale-105 transition-transform duration-300">
+                        <PhysicistCard physicist={physicist} />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-20">
+                    <div className="bg-[#181A20]/80 border border-[#03E1FF]/20 rounded-3xl p-12 max-w-md mx-auto">
+                      <Sparkles className="h-16 w-16 text-[#00FFA3] mx-auto mb-6" />
+                      <h3 className="text-2xl font-bold text-white mb-4 font-outfit">No Physicists Selected</h3>
+                      <p className="text-gray-300 mb-8 font-outfit">
+                        {filters.search || filters.timeline !== "all" || filters.topic
+                          ? "No physicists match your filters"
+                          : "You haven't selected any physicists yet"}
+                      </p>
+                      <Link to="/onboarding">
+                        <Button className="bg-gradient-to-r from-[#00FFA3] to-[#03E1FF] text-black font-bold px-8 py-3 rounded-xl hover:scale-105 transition-transform font-outfit">
+                          Select Physicists
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="all" className="mt-0">
+                {filteredPhysicists.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredPhysicists.map(physicist => (
+                      <div key={physicist.id} className="transform hover:scale-105 transition-transform duration-300">
+                        <PhysicistCard physicist={physicist} />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-20">
+                    <div className="bg-[#181A20]/80 border border-[#03E1FF]/20 rounded-3xl p-12 max-w-md mx-auto">
+                      <Zap className="h-16 w-16 text-[#03E1FF] mx-auto mb-6" />
+                      <h3 className="text-2xl font-bold text-white mb-4 font-outfit">No Results Found</h3>
+                      <p className="text-gray-300 font-outfit">No physicists match your current filters</p>
+                    </div>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
           </div>
-        )}
 
-        <Tabs defaultValue="selected" onValueChange={(value) => setActiveTab(value as "selected" | "all")}>
-          <TabsList className="bg-black/30 mb-6 rounded-full p-1 shadow-inner flex gap-2">
-            <TabsTrigger value="selected" className="rounded-full px-6 py-2 focus:ring-2 focus:ring-purple-400 transition-all">
-              Your Selected Physicists
-            </TabsTrigger>
-            <TabsTrigger value="all" className="rounded-full px-6 py-2 focus:ring-2 focus:ring-blue-400 transition-all">
-              All Physicists
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="selected" className="mt-0">
-            {filteredPhysicists.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPhysicists.map(physicist => (
-                  <div
-                    key={physicist.id}
-                    className="transition-transform hover:scale-105 hover:shadow-2xl duration-300"
-                  >
-                    <PhysicistCard physicist={physicist} />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-8 text-center shadow-lg">
-                <p className="text-gray-400 mb-4">
-                  {filters.search || filters.timeline !== "all" || filters.topic
-                    ? "No physicists match your filters"
-                    : "You haven't selected any physicists yet"}
-                </p>
-                <Link to="/onboarding">
-                  <Button variant="outline" className="border-purple-400 text-purple-400">
-                    Select Physicists
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="all" className="mt-0">
-            {filteredPhysicists.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPhysicists.map(physicist => (
-                  <div
-                    key={physicist.id}
-                    className="transition-transform hover:scale-105 hover:shadow-2xl duration-300"
-                  >
-                    <PhysicistCard physicist={physicist} />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-8 text-center shadow-lg">
-                <p className="text-gray-400 mb-4">No physicists match your filters</p>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
-
-        <div className="mt-16 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Link to="/onboarding">
-            <Button variant="outline" className="border-purple-400 text-purple-400 shadow-md hover:shadow-xl transition">
-              Edit Selection
-            </Button>
-          </Link>
-          <Link to="/journal">
-            <Button className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-md hover:shadow-xl transition">
-              View Learning Journal
-            </Button>
-          </Link>
-          <Link to="/create-replica">
-            <Button className="bg-gradient-to-r from-amber-500 to-yellow-500 text-black shadow-md hover:shadow-xl transition">
-              Create Your Own Physicist
-            </Button>
-          </Link>
+          {/* Action Buttons */}
+          <div className="flex flex-wrap justify-center gap-6 pt-12">
+            <Link to="/onboarding">
+              <Button 
+                variant="outline" 
+                className="bg-transparent border-2 border-[#DC1FFF] text-[#DC1FFF] hover:bg-[#DC1FFF] hover:text-black px-8 py-3 rounded-xl font-bold transition-all hover:scale-105 font-outfit"
+              >
+                Edit Selection
+              </Button>
+            </Link>
+            <Link to="/journal">
+              <Button className="bg-gradient-to-r from-[#03E1FF] to-[#DC1FFF] text-black font-bold px-8 py-3 rounded-xl hover:scale-105 transition-transform font-outfit">
+                View Learning Journal
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/create-replica">
+              <Button className="bg-gradient-to-r from-[#00FFA3] to-[#03E1FF] text-black font-bold px-8 py-3 rounded-xl hover:scale-105 transition-transform font-outfit">
+                Create Your Own Physicist
+                <Sparkles className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

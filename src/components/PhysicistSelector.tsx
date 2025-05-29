@@ -28,32 +28,7 @@ export const PhysicistSelector: React.FC<PhysicistSelectorProps> = ({
 
   return (
     <div className="mb-8">
-      {/* Heading and subheading */}
-      <div className="mb-6">
-        <h2
-          className="text-2xl md:text-3xl font-bold"
-          style={{ fontFamily: "'Outfit', sans-serif", backgroundImage: "linear-gradient(to top, #96fbc4 0%, #f9f586 100%)",
-             WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent", }}
-        >
-          Choose whom to speak with
-        </h2>
-        <p
-          className="text-base md:text-lg font-medium mt-1"
-          style={{
-            fontFamily: "'Outfit', sans-serif",
-             // Lemon yellow 
-             backgroundImage: "linear-gradient(to top, #96fbc4 0%, #f9f586 100%)",
-             WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-            letterSpacing: "0.01em"
-          }}
-        >
-          Select the brilliant minds you'd like to chat with
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {physicists.map(physicist => {
           const selected = selectedPhysicistIds.includes(physicist.id) || isGodOfPhysics(physicist.id);
           return (
@@ -63,55 +38,52 @@ export const PhysicistSelector: React.FC<PhysicistSelectorProps> = ({
               tabIndex={0}
               className={`
                 group cursor-pointer transition-all duration-200 rounded-xl
-                border-2 shadow-lg
+                border-2 shadow-lg hover:scale-[1.02] hover:shadow-[#00FFA3]/20
                 ${selected
-                  ? "border-green-400"
-                  : "border-transparent"}
+                  ? "border-[#00FFA3] bg-[#181A20]/80"
+                  : "border-[#03E1FF]/30 bg-[#181A20]/60"}
                 ${isGodOfPhysics(physicist.id) ? "pointer-events-none" : ""}
               `}
-              style={{
-                fontFamily: "'Outfit', sans-serif",
-                minHeight: 120,
-backgroundImage: "linear-gradient(145deg, #0d0d0d, #1a1a1a, #2c2c2e, #3a2f4a, #1a1a1a)"
-              }}
               onClick={() => !isGodOfPhysics(physicist.id) && togglePhysicist(physicist.id)}
             >
-              <CardContent className="p-6 flex items-center gap-5">
-                {/* Square avatar with neon green border */}
-                <div
-                  className="h-14 w-14 rounded-lg flex items-center justify-center bg-[#18181c]"
-                  style={{
-                    border: "3px solid #03fcdb", // Neon green
-                    overflow: "hidden",
-                  }}
-                >
-                  <Avatar className="h-14 w-14 rounded-lg">
-                    {physicist.avatar ? (
-                      <AvatarImage src={physicist.avatar} alt={physicist.name} className="object-cover h-full w-full rounded-lg" />
-                    ) : (
-                      <AvatarFallback className="bg-[#18181c] text-white font-bold text-2xl rounded-lg">
-                        {physicist.name.charAt(0)}
-                      </AvatarFallback>
-                    )}
-                  </Avatar>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3
-                      className="font-bold text-xl truncate text-white"
-                      style={{ fontFamily: "'Outfit', sans-serif" }}
-                    >
-                      {physicist.name}
-                    </h3>
-                    {isGodOfPhysics(physicist.id) && (
-                      <Badge className="ml-2 px-2 py-0.5 bg-[#18181c] text-green-400 font-semibold rounded text-xs border border-green-800">
+              <CardContent className="p-4 flex items-center gap-4">
+                <div className="relative">
+                  <div className={`h-14 w-14 rounded-lg border-2 ${
+                    selected ? "border-[#00FFA3]" : "border-[#03E1FF]/50"
+                  }`}>
+                    <Avatar className="h-full w-full rounded-lg">
+                      {physicist.avatar ? (
+                        <AvatarImage 
+                          src={physicist.avatar} 
+                          alt={physicist.name} 
+                          className="object-cover"
+                        />
+                      ) : (
+                        <AvatarFallback className="bg-[#23243a] text-[#03E1FF] font-bold text-2xl">
+                          {physicist.name.charAt(0)}
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
+                  </div>
+                  {isGodOfPhysics(physicist.id) && (
+                    <div className="absolute -top-2 -right-2">
+                      <Badge className="px-2 py-0.5 bg-[#00FFA3] text-black font-semibold rounded-full text-xs">
                         Guide
                       </Badge>
-                    )}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-lg text-[#03E1FF] truncate font-outfit">
+                      {physicist.name}
+                    </h3>
                   </div>
-                  <p className="text-base text-neutral-300 mt-1 truncate" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                  <p className="text-sm text-[#00FFA3] mt-1 truncate font-outfit">
                     {physicist.specialty}
                   </p>
+                 
                 </div>
               </CardContent>
             </Card>
