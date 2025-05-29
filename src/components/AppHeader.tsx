@@ -182,26 +182,32 @@ export const AppHeader: React.FC = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-800/80 border-b border-white/10 px-4 py-2 sm:py-3 backdrop-blur-lg shadow-md"
-      style={{ fontFamily: "'Outfit', sans-serif" }}
-    >
-      <div className="container max-w-7xl mx-auto flex justify-between items-center">
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          <Link to="/" className="flex items-center">
-            <span
-              className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 via-blue-700 to-purple-400 tracking-wide"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-            >
-              Photon
-            </span>
-          </Link>
-          {!isMobile && renderDesktopNav()}
-        </div>
-        <div className="flex items-center space-x-2 sm:space-x-3">
-          {renderWalletButton()}
-          {isMobile && renderMobileNav()}
-        </div>
-      </div>
-    </header>
+  className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-800/80 border-b border-white/10 px-4 py-2 sm:py-3 backdrop-blur-lg shadow-md"
+  style={{ fontFamily: "'Outfit', sans-serif" }}
+>
+  <div className="container max-w-7xl mx-auto flex justify-between items-center">
+    {/* Left: Logo */}
+    <div className="flex items-center space-x-2 sm:space-x-4">
+      <Link to="/" className="flex items-center">
+        <span
+          className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 via-blue-700 to-purple-400 tracking-wide"
+          style={{ fontFamily: "'Outfit', sans-serif" }}
+        >
+          Photon
+        </span>
+      </Link>
+    </div>
+    {/* Center: Nav */}
+    <div className="flex-1 flex justify-center">
+      {!isMobile && renderDesktopNav()}
+    </div>
+    {/* Right: Wallet & Mobile Menu */}
+    <div className="flex items-center space-x-2 sm:space-x-3">
+      {renderWalletButton()}
+      {isMobile && renderMobileNav()}
+    </div>
+  </div>
+</header>
+
   );
 };
