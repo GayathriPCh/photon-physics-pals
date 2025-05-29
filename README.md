@@ -1,6 +1,8 @@
 # 🔭 Photon
 
 **Photon** is a decentralized edtech application where users explore the world of physics by chatting with AI-based replicas of historical and modern physicists. The project blends conversational AI with blockchain to reward content contributors and foster a unique, curiosity-first learning environment.
+![image](https://github.com/user-attachments/assets/ff7deacb-d001-4a48-8e33-2e43205d4d19)
+
 
 ---
 
